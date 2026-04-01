@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WikiPlantas{% endblock %} - 🌿 Enciclopedia de plantas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            🌿 WikiPlantas
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/plantas">Plantas</a></li>
+            <li><a href="/blog">Blog</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    
+    <footer class="footer">
+        <div class="container">
+            <p>🌱 WikiPlantas - Tu enciclopedia botánica natural</p>
+            <small>Hecho con 🌿 para amantes de las plantas y la cosmética natural</small>
+            <br>
+            <small>© 2024- Todos los derechos reservados</small>
+        </div>
+    </footer>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

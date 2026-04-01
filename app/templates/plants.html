@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Plantas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>🌿 Todas las plantas</h1>
+    
+    <div class="search-section">
+        <form action="/buscar" method="GET" class="search-box">
+            <input type="text" name="q" placeholder="Buscar por nombre común o científico..." value="{{ busqueda or '' }}">
+            <button type="submit">🔍 Buscar</button>
+        </form>
+        
+        <div class="filtros">
+            <a href="/buscar?q={{ busqueda or '' }}" class="filtro-btn {% if not filtro_activo %}active{% endif %}">Todos</a>
+            <a href="/buscar?q={{ busqueda or '' }}&filtro=medicinal" class="filtro-btn {% if filtro_activo == 'medicinal' %}active{% endif %}">💊 Medicinales</a>
+            <a href="/buscar?q={{ busqueda or '' }}&filtro=cosmetico" class="filtro-btn {% if filtro_activo == 'cosmetico' %}active{% endif %}">🧴 Cosmética</a>
+            <a href="/buscar?q={{ busqueda or '' }}&filtro=ambos" class="filtro-btn {% if filtro_activo == 'ambos' %}active{% endif %}">✨ Ambos</a>
+        </div>
+    </div>
+    
+    <div class="plantas-grid">
+        {% for planta in plantas %}
+        <a href="/planta/{{ planta.id }}" class="card">
+            {% if planta.imagen_url %}
+            <img src="{{ planta.imagen_url }}" alt="{{ planta.nombre_comun }}" class="card-img">
+            {% else %}
+            <div class="card-img" style="background-color: #e8e0d0; display: flex; align-items: center; justify-content: center;">
+                🌿
+            </div>
+            {% endif %}
+            <div class="card-content">
+                <h3>{{ planta.nombre_comun }}</h3>
+                <div class="cientifico">{{ planta.nombre_cientifico or '' }}</div>
+                <div class="propiedades">
+                    {% if planta.propiedades_medicinales %}
+                    <span class="badge">💊 Medicinal</span>
+                    {% endif %}
+                    {% if planta.propiedades_cosmeticas %}
+                    <span class="badge">🧴 Cosmética</span>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+        {% else %}
+        <p>No se encontraron plantas. {% if busqueda %}Prueba con otra búsqueda.{% endif %}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

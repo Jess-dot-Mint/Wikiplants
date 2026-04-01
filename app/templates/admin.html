@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>🛠️ Panel de administración</h1>
+    <p><a href="/logout" class="btn btn-outline">🚪 Cerrar sesión</a></p>
+    
+    <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
+        <a href="/admin/planta/nueva" class="btn">➕ Nueva planta</a>
+        <a href="/admin/articulo/nuevo" class="btn">✍️ Nuevo artículo</a>
+    </div>
+    
+    <h2>🌿 Plantas ({{ plantas|length }})</h2>
+    <table style="width: 100%; border-collapse: collapse; background: var(--blanco-hueso); border-radius: 16px; overflow: hidden;">
+        <thead>
+            <tr style="background: var(--verde-oscuro); color: white;">
+                <th style="padding: 0.8rem; text-align: left;">ID</th>
+                <th style="padding: 0.8rem; text-align: left;">Nombre común</th>
+                <th style="padding: 0.8rem; text-align: left;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for planta in plantas %}
+            <tr style="border-bottom: 1px solid #e0d6c8;">
+                <td style="padding: 0.8rem;">{{ planta.id }}</td>
+                <td style="padding: 0.8rem;">{{ planta.nombre_comun }}</td>
+                <td style="padding: 0.8rem;">
+                    <a href="/admin/planta/{{ planta.id }}/editar" style="margin-right: 1rem;">✏️ Editar</a>
+                    <a href="/admin/planta/{{ planta.id }}/eliminar" onclick="return confirm('¿Eliminar esta planta?')">🗑️ Eliminar</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" style="padding: 1rem;">No hay plantas aún</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2 style="margin-top: 2rem;">📝 Artículos ({{ articulos|length }})</h2>
+    <table style="width: 100%; border-collapse: collapse; background: var(--blanco-hueso); border-radius: 16px; overflow: hidden;">
+        <thead>
+            <tr style="background: var(--verde-oscuro); color: white;">
+                <th style="padding: 0.8rem; text-align: left;">ID</th>
+                <th style="padding: 0.8rem; text-align: left;">Título</th>
+                <th style="padding: 0.8rem; text-align: left;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for articulo in articulos %}
+            <tr style="border-bottom: 1px solid #e0d6c8;">
+                <td style="padding: 0.8rem;">{{ articulo.id }}</td>
+                <td style="padding: 0.8rem;">{{ articulo.titulo }}</td>
+                <td style="padding: 0.8rem;">
+                    <a href="/admin/articulo/{{ articulo.id }}/editar" style="margin-right: 1rem;">✏️ Editar</a>
+                    <a href="/admin/articulo/{{ articulo.id }}/eliminar" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" style="padding: 1rem;">No hay artículos aún</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

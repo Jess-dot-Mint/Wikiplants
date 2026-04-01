@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{% if articulo %}Editar{% else %}Nuevo{% endif %} artículo{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+    <div class="ficha-planta">
+        <h1>{% if articulo %}✏️ Editar{% else %}✍️ Nuevo{% endif %} artículo</h1>
+        
+        <form method="POST">
+            <div style="margin-bottom: 1rem;">
+                <label><strong>Título *</strong></label>
+                <input type="text" name="titulo" value="{{ articulo.titulo if articulo else '' }}" required style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label><strong>Planta relacionada (opcional)</strong></label>
+                <select name="planta_id" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+                    <option value="">-- Ninguna --</option>
+                    {% for planta in plantas %}
+                    <option value="{{ planta.id }}" {% if articulo and articulo.planta_id == planta.id %}selected{% endif %}>
+                        {{ planta.nombre_comun }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 1rem;">
+                <label><strong>Contenido *</strong></label>
+                <textarea name="contenido" rows="12" required style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">{{ articulo.contenido if articulo else '' }}</textarea>
+                <small>Puedes usar texto plano. Los saltos de línea se conservan.</small>
+            </div>
+            
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" class="btn">💾 Guardar</button>
+                <a href="/admin" class="btn btn-outline">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,463 @@
+/* ===== VARIABLES ===== */
+:root {
+    --verde-oscuro: #2c5f2d;
+    --verde-menta: #97bc62;
+    --crema: #fef9e6;
+    --blanco-hueso: #fff9ef;
+    --texto-oscuro: #2d2b26;
+    --sombra: 0 4px 12px rgba(0,0,0,0.08);
+    --sombra-hover: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Estilos adicionales para asegurar que todo se vea bien */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef9e6;
+            color: #2d2b26;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .navbar {
+            background-color: #2c5f2d;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo:hover {
+            color: #97bc62;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #97bc62;
+        }
+        .footer {
+            background-color: #2c5f2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .footer a {
+            color: #97bc62;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+
+
+/* Estilos adicionales para asegurar que todo se vea bien */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef9e6;
+            color: #2d2b26;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .navbar {
+            background-color: #2c5f2d;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo:hover {
+            color: #97bc62;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #97bc62;
+        }
+        .footer {
+            background-color: #2c5f2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .footer a {
+            color: #97bc62;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+
+
+
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== UTILIDADES ===== */
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--verde-oscuro);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    background-color: #1e3a1e;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--verde-oscuro);
+    color: var(--verde-oscuro);
+}
+
+.btn-outline:hover {
+    background-color: var(--verde-oscuro);
+    color: white;
+}
+
+/* ===== HERO / BIENVENIDA ===== */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, var(--crema) 0%, #fff5e6 100%);
+    border-radius: 24px;
+    margin: 2rem 0;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--verde-oscuro);
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== GRID DE PLANTAS ===== */
+.plantas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem;
+    margin: 2rem 0;
+}
+
+/* ===== TARJETAS ===== */
+.card {
+    background-color: var(--blanco-hueso);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-hover);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #e8e0d0;
+}
+
+.card-content {
+    padding: 1.2rem;
+}
+
+.card h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.card .cientifico {
+    font-style: italic;
+    color: #6b6a66;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.card .propiedades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.badge {
+    background-color: var(--verde-menta);
+    color: var(--texto-oscuro);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* ===== FICHA DE PLANTA ===== */
+.ficha-planta {
+    background-color: var(--blanco-hueso);
+    border-radius: 24px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--sombra);
+}
+
+.ficha-header {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.ficha-imagen {
+    flex: 1;
+    min-width: 200px;
+}
+
+.ficha-imagen img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.ficha-info {
+    flex: 2;
+}
+
+.ficha-info h1 {
+    color: var(--verde-oscuro);
+    margin-bottom: 0.25rem;
+}
+
+.cientifico-nombre {
+    font-style: italic;
+    color: #6b6a66;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.propiedad-item {
+    margin-bottom: 1rem;
+}
+
+.propiedad-item strong {
+    color: var(--verde-oscuro);
+}
+
+/* ===== PESTAÑAS ===== */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--verde-menta);
+    margin: 2rem 0 0;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--texto-oscuro);
+    transition: all 0.2s;
+    border-radius: 8px 8px 0 0;
+}
+
+.tab-btn:hover {
+    background-color: #e8e0d0;
+}
+
+.tab-btn.active {
+    background-color: var(--verde-menta);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0 12px 12px 12px;
+    margin-top: 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ===== BUSCADOR ===== */
+.search-section {
+    margin: 2rem 0;
+}
+
+.search-box {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0d6c8;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--verde-menta);
+}
+
+.search-box button {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--verde-oscuro);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filtros {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    padding: 0.4rem 1rem;
+    background-color: #e8e0d0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filtro-btn:hover, .filtro-btn.active {
+    background-color: var(--verde-menta);
+    color: white;
+}
+
+/* ===== BLOG (placeholder) ===== */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .ficha-header {
+        flex-direction: column;
+    }
+    
+    .plantas-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabs {
+        justify-content: center;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

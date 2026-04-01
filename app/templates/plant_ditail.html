@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ planta.nombre_comun }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="ficha-planta">
+        <div class="ficha-header">
+            <div class="ficha-imagen">
+                {% if planta.imagen_url %}
+                <img src="{{ planta.imagen_url }}" alt="{{ planta.nombre_comun }}">
+                {% else %}
+                <div style="background-color: #e8e0d0; border-radius: 16px; min-height: 250px; display: flex; align-items: center; justify-content: center;">
+                    🌿
+                </div>
+                {% endif %}
+            </div>
+            <div class="ficha-info">
+                <h1>{{ planta.nombre_comun }}</h1>
+                <div class="cientifico-nombre">{{ planta.nombre_cientifico or 'Nombre científico no disponible' }}</div>
+                {% if planta.familia %}
+                <div><strong>Familia:</strong> {{ planta.familia }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="medicinal">💊 Propiedades medicinales</button>
+            <button class="tab-btn" data-tab="cosmetico">🧴 Propiedades cosméticas</button>
+            <button class="tab-btn" data-tab="usos">🌱 Usos y formas</button>
+            <button class="tab-btn" data-tab="historia">📖 Historia</button>
+        </div>
+        
+        <div id="medicinal" class="tab-content active">
+            <h3>Propiedades medicinales</h3>
+            <p>{{ planta.propiedades_medicinales or 'No hay información disponible.' }}</p>
+            {% if planta.contraindicaciones %}
+            <div style="margin-top: 1rem; padding: 1rem; background-color: #ffe6e6; border-radius: 12px;">
+                <strong>⚠️ Contraindicaciones:</strong> {{ planta.contraindicaciones }}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div id="cosmetico" class="tab-content">
+            <h3>Propiedades cosméticas</h3>
+            <p>{{ planta.propiedades_cosmeticas or 'No hay información disponible.' }}</p>
+        </div>
+        
+        <div id="usos" class="tab-content">
+            <div class="propiedad-item">
+                <strong>🌿 Partes usadas:</strong> {{ planta.partes_usadas or 'No especificado' }}
+            </div>
+            <div class="propiedad-item">
+                <strong>🧴 Formas de uso:</strong> {{ planta.formas_uso or 'No especificado' }}
+            </div>
+        </div>
+        
+        <div id="historia" class="tab-content">
+            <p>{{ planta.historia or 'No hay información disponible.' }}</p>
+        </div>
+    </div>
+    
+    {% if articulos_relacionados %}
+    <h2>📝 Artículos relacionados</h2>
+    <div class="blog-grid">
+        {% for articulo in articulos_relacionados %}
+        <a href="/articulo/{{ articulo.id }}" class="card">
+            <div class="card-content">
+                <h3>{{ articulo.titulo }}</h3>
+                <small>{{ articulo.created_at[:10] }}</small>
+                <p>{{ articulo.contenido[:120] }}...</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    // Funcionalidad de pestañas
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.dataset.tab;
+            
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+</script>
+{% endblock %}

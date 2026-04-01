@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin-top: 3rem;">
+    <div class="ficha-planta">
+        <h2>🔐 Acceso al panel de administración</h2>
+        {% if error %}
+        <div style="background-color: #ffe6e6; padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem; color: #b33;">
+            {{ error }}
+        </div>
+        {% endif %}
+        <form method="POST">
+            <div style="margin-bottom: 1rem;">
+                <label for="password" style="display: block; margin-bottom: 0.5rem;">Contraseña:</label>
+                <input type="password" name="password" id="password" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Ingresar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero">
+        <h1>🌿 WikiPlantas</h1>
+        <p>Tu enciclopedia de plantas medicinales y cosméticas</p>
+    </div>
+    
+    <h2>📚 Últimas plantas agregadas</h2>
+    <div class="plantas-grid">
+        {% for planta in plantas %}
+        <a href="/planta/{{ planta.id }}" class="card">
+            {% if planta.imagen_url %}
+            <img src="{{ planta.imagen_url }}" alt="{{ planta.nombre_comun }}" class="card-img">
+            {% else %}
+            <div class="card-img" style="background-color: #e8e0d0; display: flex; align-items: center; justify-content: center;">
+                🌿
+            </div>
+            {% endif %}
+            <div class="card-content">
+                <h3>{{ planta.nombre_comun }}</h3>
+                <div class="cientifico">{{ planta.nombre_cientifico or '' }}</div>
+                <div class="propiedades">
+                    {% if planta.propiedades_medicinales %}
+                    <span class="badge">💊 Medicinal</span>
+                    {% endif %}
+                    {% if planta.propiedades_cosmeticas %}
+                    <span class="badge">🧴 Cosmética</span>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+        {% else %}
+        <p>No hay plantas aún. ¡Agrega la primera desde el panel de administración!</p>
+        {% endfor %}
+    </div>
+    
+    <h2>📝 Últimos artículos</h2>
+    <div class="blog-grid">
+        {% for articulo in articulos %}
+        <a href="/articulo/{{ articulo.id }}" class="card">
+            <div class="card-content">
+                <h3>{{ articulo.titulo }}</h3>
+                <small>{{ articulo.created_at[:10] }}</small>
+                <p>{{ articulo.contenido[:150] }}...</p>
+            </div>
+        </a>
+        {% else %}
+        <p>No hay artículos aún.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
