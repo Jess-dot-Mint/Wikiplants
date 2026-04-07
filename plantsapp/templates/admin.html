@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <h1>🛠️ Panel de administración</h1>
-    <p><a href="/logout" class="btn btn-outline">🚪 Cerrar sesión</a></p>
+    <p><a href="{{ url_for('auth.logout') }}" class="btn btn-outline">🚪 Cerrar sesión</a></p>
     
     <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
         <a href="{{ url_for('auth.admin_planta_nueva') }}" class="btn">➕ Nueva planta</a>
@@ -52,8 +52,8 @@
                 <td style="padding: 0.8rem;">{{ articulo.id }}</td>
                 <td style="padding: 0.8rem;">{{ articulo.titulo }}</td>
                 <td style="padding: 0.8rem;">
-                    <a href="/admin/articulo/{{ articulo.id }}/editar" style="margin-right: 1rem;">✏️ Editar</a>
-                    <a href="/admin/articulo/{{ articulo.id }}/eliminar" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
+                    <a href="{{ url_for('auth.admin_articulo_editar', id=articulo.id) }}" style="margin-right: 1rem;">✏️ Editar</a>
+                    <a href="{{ url_for('auth.admin_articulo_editar', id=articulo.id) }}" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
                 </td>
             </tr>
             {% else %}

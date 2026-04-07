@@ -88,7 +88,7 @@ def login():
         # Cambia esta contraseña por una que solo tú sepas
         if password == '123':
             session['logged_in'] = True
-            return redirect(url_for('views.admin'))
+            return redirect(url_for('auth.admin'))
         else:
             return render_template('login.html', error='Contraseña incorrecta')
     return render_template('login.html')
@@ -99,15 +99,24 @@ def login():
 def logout():
     """Cerrar sesión"""
     session.pop('logged_in', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
 @bp.route('/admin')
 @login_required
 def admin():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
+    
+    
     """Panel de administración"""
     db = get_db()
+
+
+    # Diagnóstico: imprime en la terminal cuántas plantas hay
+    count = db.execute('SELECT COUNT(*) FROM plantas').fetchone()[0]
+    print(f"🔍 DEBUG: Hay {count} plantas en la BD")
+    
+
     plantas = db.execute('SELECT * FROM plantas ORDER BY created_at DESC').fetchall()
     articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC').fetchall()
     return render_template('admin.html', plantas=plantas, articulos=articulos)
@@ -235,7 +244,7 @@ def admin_articulo_editar(id):
             id
         ))
         db.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('auth.admin'))
     
     return render_template('admin_article_form.html', articulo=articulo, plantas=plantas)
 

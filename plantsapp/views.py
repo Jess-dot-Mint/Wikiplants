@@ -8,7 +8,9 @@ año_actual = date.today().year
 
 bp = Blueprint('views', __name__, url_prefix='/views')
 
-
+@bp.route('/')
+def home():
+    return render_template("index.html", year=año_actual)
 
 @bp.route('/plants')
 def plants():
@@ -74,8 +76,3 @@ def plant_det():
 def blog():
     return render_template("blog.html")
 
-
-
-@bp.route('/admin')
-def admin():
-    return render_template("admin.html")
