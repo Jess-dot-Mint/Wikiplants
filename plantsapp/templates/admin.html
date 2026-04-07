@@ -53,7 +53,7 @@
                 <td style="padding: 0.8rem;">{{ articulo.titulo }}</td>
                 <td style="padding: 0.8rem;">
                     <a href="{{ url_for('auth.admin_articulo_editar', id=articulo.id) }}" style="margin-right: 1rem;">✏️ Editar</a>
-                    <a href="{{ url_for('auth.admin_articulo_editar', id=articulo.id) }}" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
+                    <a href="{{ url_for('auth.admin_articulo_eliminar', id=articulo.id) }}" onclick="return confirm('¿Eliminar este artículo?')">🗑️ Eliminar</a>
                 </td>
             </tr>
             {% else %}

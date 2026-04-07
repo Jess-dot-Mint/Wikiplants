@@ -110,13 +110,6 @@ def admin():
     
     """Panel de administración"""
     db = get_db()
-
-
-    # Diagnóstico: imprime en la terminal cuántas plantas hay
-    count = db.execute('SELECT COUNT(*) FROM plantas').fetchone()[0]
-    print(f"🔍 DEBUG: Hay {count} plantas en la BD")
-    
-
     plantas = db.execute('SELECT * FROM plantas ORDER BY created_at DESC').fetchall()
     articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC').fetchall()
     return render_template('admin.html', plantas=plantas, articulos=articulos)
@@ -255,4 +248,4 @@ def admin_articulo_eliminar(id):
     db = get_db()
     db.execute('DELETE FROM articulos WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('admin'))
+    return redirect(url_for('auth.admin'))

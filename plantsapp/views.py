@@ -8,13 +8,39 @@ año_actual = date.today().year
 
 bp = Blueprint('views', __name__, url_prefix='/views')
 
-@bp.route('/')
-def home():
-    return render_template("index.html", year=año_actual)
 
-@bp.route('/plants')
-def plants():
-    return render_template("plants.html", year=año_actual)
+@bp.app_context_processor
+def inject_year():
+    return {'year': date.today().year}
+"""
+@bp.route('/')
+def index():
+    return render_template('index.html')
+
+    """
+
+@bp.route('/')
+def index():
+   # Página de inicio
+
+    db = get_db()
+    
+    # Obtener últimas 6 plantas agregadas
+    plantas = db.execute('SELECT * FROM plantas ORDER BY created_at DESC LIMIT 6').fetchall()
+    # Obtener últimos 3 artículos del blog
+    articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC LIMIT 3').fetchall()
+   
+    return render_template('index.html', plantas=plantas, articulos=articulos)
+
+
+
+
+@bp.route('/plantas')
+def plantas_lista():
+    """Listado de todas las plantas"""
+    db = get_db()
+    plantas = db.execute('SELECT * FROM plantas ORDER BY nombre_comun').fetchall()
+    return render_template('plants.html', plantas=plantas)
 
 @bp.route('/plant/<int:id>')
 def plant_detail(id):

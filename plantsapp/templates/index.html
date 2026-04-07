@@ -12,7 +12,7 @@
     <h2>📚 Últimas plantas agregadas</h2>
     <div class="plantas-grid">
         {% for planta in plantas %}
-        <a href="/planta/{{ planta.id }}" class="card">
+        <a href="{{ url_for('views.plant_detail', id = planta.id) }}" class="card">
             {% if planta.imagen_url %}
             <img src="{{ planta.imagen_url }}" alt="{{ planta.nombre_comun }}" class="card-img">
             {% else %}
@@ -41,10 +41,10 @@
     <h2>📝 Últimos artículos</h2>
     <div class="blog-grid">
         {% for articulo in articulos %}
-        <a href="/articulo/{{ articulo.id }}" class="card">
+        <a href="{{ url_for('views.articulo_detalle', id = articulo.id) }}" class="card">
             <div class="card-content">
                 <h3>{{ articulo.titulo }}</h3>
-                <small>{{ articulo.created_at[:10] }}</small>
+                <small>{{ articulo.created_at.strftime('%d de %B, %Y') }}</small>
                 <p>{{ articulo.contenido[:150] }}...</p>
             </div>
         </a>

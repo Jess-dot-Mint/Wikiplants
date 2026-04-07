@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template 
+from flask import Flask, render_template, url_for, redirect
 
 from datetime import date
 
@@ -30,7 +30,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def home():
-        return render_template("index.html", year=año_actual)
+        return redirect(url_for('views.index'))
     
     
     from . import db 
