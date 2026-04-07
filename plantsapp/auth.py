@@ -1,39 +1,123 @@
 
-# ==================== ADMINISTRACIÓN (PROTEGIDO) ====================
+from functools import wraps
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+#from werkzeug.security import check_password_hash, generate_password_hash
 
-@app.route('/login', methods=['GET', 'POST'])
+from .db import get_db
+
+bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+"""
+@bp.route('/register', methods=('GET', 'POST'))
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+
+        if not username:
+            error = 'Username is required.'
+        elif not password:
+            error = 'Password is required.'
+
+        if error is None:
+            try:
+                db.execute(
+                    "INSERT INTO user (username, password) VALUES (?, ?)",
+                    (username, generate_password_hash(password)),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {username} is already registered."
+            else:
+                return redirect(url_for("auth.login"))
+
+        flash(error)
+
+    return render_template('auth/register.html')
+
+
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect username.'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect password.'
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+
+        flash(error)
+
+    return render_template('auth/login.html')
+
+"""
+
+
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('auth.login'))  # o 'login' según tu ruta
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Panel de login simple"""
     if request.method == 'POST':
         password = request.form.get('password')
         # Cambia esta contraseña por una que solo tú sepas
-        if password == 'wikiplantas2024':
+        if password == '123':
             session['logged_in'] = True
-            return redirect(url_for('admin'))
+            return redirect(url_for('views.admin'))
         else:
             return render_template('login.html', error='Contraseña incorrecta')
     return render_template('login.html')
 
-@app.route('/logout')
+
+
+@bp.route('/logout')
 def logout():
     """Cerrar sesión"""
     session.pop('logged_in', None)
     return redirect(url_for('index'))
 
-@app.route('/admin')
+@bp.route('/admin')
 @login_required
 def admin():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     """Panel de administración"""
     db = get_db()
     plantas = db.execute('SELECT * FROM plantas ORDER BY created_at DESC').fetchall()
     articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC').fetchall()
     return render_template('admin.html', plantas=plantas, articulos=articulos)
 
-@app.route('/admin/planta/nueva', methods=['GET', 'POST'])
+@bp.route('/admin/planta/nueva', methods=['GET', 'POST'])
 @login_required
 def admin_planta_nueva():
     """Agregar nueva planta"""
     if request.method == 'POST':
+      
         db = get_db()
         db.execute('''
             INSERT INTO plantas (
@@ -54,11 +138,16 @@ def admin_planta_nueva():
             request.form.get('imagen_url')
         ))
         db.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('auth.admin'))
     
-    return render_template('admin_planta_form.html', planta=None)
+    
+    return render_template('admin_plant_form.html', planta=None)
 
-@app.route('/admin/planta/<int:id>/editar', methods=['GET', 'POST'])
+
+
+
+
+@bp.route('/admin/planta/<int:id>/editar', methods=['GET', 'POST'])
 @login_required
 def admin_planta_editar(id):
     """Editar planta existente"""
@@ -89,20 +178,20 @@ def admin_planta_editar(id):
             id
         ))
         db.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('auth.admin'))
     
-    return render_template('admin_planta_form.html', planta=planta)
+    return render_template('admin_plant_form.html', planta=planta)
 
-@app.route('/admin/planta/<int:id>/eliminar')
+@bp.route('/admin/planta/<int:id>/eliminar')
 @login_required
 def admin_planta_eliminar(id):
     """Eliminar planta"""
     db = get_db()
     db.execute('DELETE FROM plantas WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('admin'))
+    return redirect(url_for('auth.admin'))
 
-@app.route('/admin/articulo/nuevo', methods=['GET', 'POST'])
+@bp.route('/admin/articulo/nuevo', methods=['GET', 'POST'])
 @login_required
 def admin_articulo_nuevo():
     """Agregar nuevo artículo"""
@@ -119,11 +208,11 @@ def admin_articulo_nuevo():
             request.form.get('planta_id') or None
         ))
         db.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('auth.admin'))
     
-    return render_template('admin_articulo_form.html', articulo=None, plantas=plantas)
+    return render_template('admin_article_form.html', articulo=None, plantas=plantas)
 
-@app.route('/admin/articulo/<int:id>/editar', methods=['GET', 'POST'])
+@bp.route('/admin/articulo/<int:id>/editar', methods=['GET', 'POST'])
 @login_required
 def admin_articulo_editar(id):
     """Editar artículo existente"""
@@ -148,9 +237,9 @@ def admin_articulo_editar(id):
         db.commit()
         return redirect(url_for('admin'))
     
-    return render_template('admin_articulo_form.html', articulo=articulo, plantas=plantas)
+    return render_template('admin_article_form.html', articulo=articulo, plantas=plantas)
 
-@app.route('/admin/articulo/<int:id>/eliminar')
+@bp.route('/admin/articulo/<int:id>/eliminar')
 @login_required
 def admin_articulo_eliminar(id):
     """Eliminar artículo"""

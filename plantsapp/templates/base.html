@@ -19,9 +19,10 @@
             🌿 WikiPlantas
         </a>
         <ul class="nav-links">
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
             <li><a href="/">Inicio</a></li>
-            <li><a href="/plantas">Plantas</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="{{ url_for('views.plants') }}">Plantas</a></li>
+            <li><a href="{{ url_for('views.blog') }}">Blog</a></li>
         </ul>
     </nav>
 
@@ -30,15 +31,16 @@
     </main>
     
     
+
     <footer class="footer">
         <div class="container">
             <p>🌱 WikiPlantas - Tu enciclopedia botánica natural</p>
             <small>Hecho con 🌿 para amantes de las plantas y la cosmética natural</small>
             <br>
-            <small>© 2024- Todos los derechos reservados</small>
+            <small>©  {{ year }}- Todos los derechos reservados</small>
         </div>
     </footer>
-    
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

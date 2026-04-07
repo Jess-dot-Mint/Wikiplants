@@ -7,7 +7,7 @@
     <div class="ficha-planta">
         <h1>{% if planta %}✏️ Editar{% else %}➕ Nueva{% endif %} planta</h1>
         
-        <form method="POST">
+        <form method="POST" action="{% if planta %}{{ url_for('auth.admin_planta_editar', id=planta.id) }}{% else %}{{ url_for('auth.admin_planta_nueva') }}{% endif %}">
             <div style="margin-bottom: 1rem;">
                 <label><strong>Nombre común *</strong></label>
                 <input type="text" name="nombre_comun" value="{{ planta.nombre_comun if planta else '' }}" required style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
@@ -35,12 +35,14 @@
             
             <div style="margin-bottom: 1rem;">
                 <label><strong>Partes usadas</strong></label>
-                <input type="text" name="partes_usadas" value="{{ planta.partes_usadas if planta else '' }}" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+                <input type="text" name="partes_usadas" value="{{ planta.partes_usadas if planta else '' }}" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;"> 
             </div>
             
             <div style="margin-bottom: 1rem;">
                 <label><strong>Formas de uso</strong></label>
-                <input type="text" name="formas_uso" value="{{ planta.formas_uso if planta else '' }}" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+                 <textarea name="formas_uso" rows="3" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">{{ planta.formas_uso if planta else '' }}</textarea>
+               
+             <!--      <input type="text" name="formas_uso" value="{{ planta.formas_uso if planta else '' }}" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">-->
             </div>
             
             <div style="margin-bottom: 1rem;">
@@ -60,7 +62,7 @@
             
             <div style="display: flex; gap: 1rem;">
                 <button type="submit" class="btn">💾 Guardar</button>
-                <a href="/admin" class="btn btn-outline">Cancelar</a>
+                <a href="{{ url_for('auth.admin') }}" class="btn btn-outline">Cancelar</a>
             </div>
         </form>
     </div>

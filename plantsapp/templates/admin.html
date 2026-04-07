@@ -8,8 +8,8 @@
     <p><a href="/logout" class="btn btn-outline">🚪 Cerrar sesión</a></p>
     
     <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
-        <a href="/admin/planta/nueva" class="btn">➕ Nueva planta</a>
-        <a href="/admin/articulo/nuevo" class="btn">✍️ Nuevo artículo</a>
+        <a href="{{ url_for('auth.admin_planta_nueva') }}" class="btn">➕ Nueva planta</a>
+        <a href="{{ url_for('auth.admin_articulo_nuevo') }}" class="btn">✍️ Nuevo artículo</a>
     </div>
     
     <h2>🌿 Plantas ({{ plantas|length }})</h2>
@@ -27,8 +27,8 @@
                 <td style="padding: 0.8rem;">{{ planta.id }}</td>
                 <td style="padding: 0.8rem;">{{ planta.nombre_comun }}</td>
                 <td style="padding: 0.8rem;">
-                    <a href="/admin/planta/{{ planta.id }}/editar" style="margin-right: 1rem;">✏️ Editar</a>
-                    <a href="/admin/planta/{{ planta.id }}/eliminar" onclick="return confirm('¿Eliminar esta planta?')">🗑️ Eliminar</a>
+                    <a href="{{ url_for('auth.admin_planta_editar', id=planta.id) }}" style="margin-right: 1rem;">✏️ Editar</a>
+                    <a href="{{ url_for('auth.admin_planta_eliminar', id=planta.id) }}" onclick="return confirm('¿Eliminar esta planta?')">🗑️ Eliminar</a>
                 </td>
             </tr>
             {% else %}
