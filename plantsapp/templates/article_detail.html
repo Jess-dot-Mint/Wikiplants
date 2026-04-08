@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ articulo.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="ficha-planta">
+        <h1>{{ articulo.titulo }}</h1>
+        <small>Publicado el {{ articulo.created_at.strftime('%Y-%m-%d') }}</small>
+        
+        {% if planta %}
+        <div style="margin: 1rem 0;">
+            🌿 <a href="{{url_for('views.plant_detail', id=planta.id) }}">Ver ficha de {{ planta.nombre_comun }}</a>
+        </div>
+        {% endif %}
+        
+        <hr style="margin: 1rem 0;">
+        
+        <div style="white-space: pre-wrap; line-height: 1.8;">
+            {{ articulo.contenido }}
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('views.blog') }}" class="btn btn-outline">← Volver al blog</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

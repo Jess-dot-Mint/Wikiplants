@@ -87,7 +87,7 @@ def articulo_detalle(id):
     planta = None
     if articulo['planta_id']:
         planta = db.execute('SELECT * FROM plantas WHERE id = ?', (articulo['planta_id'],)).fetchone()
-    return render_template('article_detalle.html', articulo=articulo, planta=planta)
+    return render_template('article_detail.html', articulo=articulo, planta=planta)
 
 
 

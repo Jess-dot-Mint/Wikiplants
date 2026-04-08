@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% import 'macros.html' as macros %}
 {% block title %}{{ planta.nombre_comun }}{% endblock %}
 
 {% block content %}
@@ -7,13 +7,7 @@
     <div class="ficha-planta">
         <div class="ficha-header">
             <div class="ficha-imagen">
-                {% if planta.imagen_url %}
-                <img src="{{ planta.imagen_url }}" alt="{{ planta.nombre_comun }}">
-                {% else %}
-                <div style="background-color: #e8e0d0; border-radius: 16px; min-height: 250px; display: flex; align-items: center; justify-content: center;">
-                    🌿
-                </div>
-                {% endif %}
+                {{ macros.img_planta(planta) }}
             </div>
             <div class="ficha-info">
                 <h1>{{ planta.nombre_comun }}</h1>
@@ -64,13 +58,7 @@
     <h2>📝 Artículos relacionados</h2>
     <div class="blog-grid">
         {% for articulo in articulos_relacionados %}
-        <a href="/articulo/{{ articulo.id }}" class="card">
-            <div class="card-content">
-                <h3>{{ articulo.titulo }}</h3>
-                <small>{{ articulo.created_at[:10] }}</small>
-                <p>{{ articulo.contenido[:120] }}...</p>
-            </div>
-        </a>
+        {{ macros.articulo_card(articulo) }}
         {% endfor %}
     </div>
     {% endif %}

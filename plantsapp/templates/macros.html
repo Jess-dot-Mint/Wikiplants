@@ -1,0 +1,56 @@
+{# templates/macros.html #}
+
+
+{% macro badge_planta(planta) %}
+    <div class="propiedades">
+        {% if planta.propiedades_medicinales %}
+            <span class="badge badge-medicinal">💊 Medicinal</span>
+        {% endif %}
+        {% if planta.propiedades_cosmeticas %}
+            <span class="badge badge-cosmetico">🧴 Cosmética</span>
+        {% endif %}
+        {% if planta.propiedades_medicinales and planta.propiedades_cosmeticas %}
+            <span class="badge badge-estrella">✨ Estrella dual</span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
+{% macro img_planta(planta) %}
+{% set base_nombre = planta.nombre_comun.lower().replace(' ', '_') %}
+    <a href="{{ url_for('views.plant_detail', id=planta.id) }}" class="card">
+        <img src="{{ url_for('static', filename='images/' + base_nombre + '.png') }}" 
+             alt="{{ planta.nombre_comun }}" 
+             class="card-img"
+             onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/' + base_nombre + '.jpg') }}'; this.onerror=function(){this.outerHTML='<div class=\'card-img\' style=\'background-color:#e8e0d0; display:flex; align-items:center; justify-content:center;\'>🌿</div>'}">
+
+{% endmacro %}
+
+{% macro planta_card(planta) %}
+        {{ img_planta(planta) }}
+
+
+        <div class="card-content">
+            <h3>{{ planta.nombre_comun }}</h3>
+            <div class="cientifico">{{ planta.nombre_cientifico or '' }}</div>
+           
+            {{ badge_planta(planta) }}
+
+
+        </div>
+    </a>
+{% endmacro %}
+
+
+
+{# templates/macros.html #}
+
+{% macro articulo_card(articulo) %}
+    <a href="{{ url_for('views.articulo_detalle', id=articulo.id) }}" class="card">
+        <div class="card-content">
+            <h3>{{ articulo.titulo }}</h3>
+            <small>{{ articulo.created_at.strftime('%Y-%m-%d') }}</small>
+            <p>{{ articulo.contenido[:150] }}...</p>
+        </div>
+    </a>
+{% endmacro %}

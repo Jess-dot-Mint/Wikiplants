@@ -1,41 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}{% if articulo %}Editar{% else %}Nuevo{% endif %} artículo{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 800px;">
-    <div class="ficha-planta">
-        <h1>{% if articulo %}✏️ Editar{% else %}✍️ Nuevo{% endif %} artículo</h1>
-        
-        <form method="POST">
-            <div style="margin-bottom: 1rem;">
-                <label><strong>Título *</strong></label>
-                <input type="text" name="titulo" value="{{ articulo.titulo if articulo else '' }}" required style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
+<div class="container">
+    <h1>📝 Blog de plantas y cosmética natural</h1>
+    
+    <div class="blog-grid">
+        {% for articulo in articulos %}
+        <a href="/articulo/{{ articulo.id }}" class="card">
+            <div class="card-content">
+                <h3>{{ articulo.titulo }}</h3>
+                <small>{{ articulo.created_at[:10] }}</small>
+                <p>{{ articulo.contenido[:200] }}...</p>
             </div>
-            
-            <div style="margin-bottom: 1rem;">
-                <label><strong>Planta relacionada (opcional)</strong></label>
-                <select name="planta_id" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">
-                    <option value="">-- Ninguna --</option>
-                    {% for planta in plantas %}
-                    <option value="{{ planta.id }}" {% if articulo and articulo.planta_id == planta.id %}selected{% endif %}>
-                        {{ planta.nombre_comun }}
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-                <label><strong>Contenido *</strong></label>
-                <textarea name="contenido" rows="12" required style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 8px;">{{ articulo.contenido if articulo else '' }}</textarea>
-                <small>Puedes usar texto plano. Los saltos de línea se conservan.</small>
-            </div>
-            
-            <div style="display: flex; gap: 1rem;">
-                <button type="submit" class="btn">💾 Guardar</button>
-                <a href="/admin" class="btn btn-outline">Cancelar</a>
-            </div>
-        </form>
+        </a>
+        {% else %}
+        <p>No hay artículos aún. ¡Agrega el primero desde el panel de administración!</p>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
