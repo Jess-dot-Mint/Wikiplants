@@ -29,6 +29,7 @@ def index():
     plantas = db.execute('SELECT * FROM plantas ORDER BY created_at DESC LIMIT 6').fetchall()
     # Obtener últimos 3 artículos del blog
     articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC LIMIT 3').fetchall()
+    
    
     return render_template('index.html', plantas=plantas, articulos=articulos)
 
