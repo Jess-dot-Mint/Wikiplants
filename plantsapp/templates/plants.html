@@ -7,16 +7,16 @@
     <h1>🌿 Todas las plantas</h1>
     
     <div class="search-section">
-        <form action="/buscar" method="GET" class="search-box">
+        <form action="{{ url_for('views.buscar') }}" method="GET" class="search-box">
             <input type="text" name="q" placeholder="Buscar por nombre común o científico..." value="{{ busqueda or '' }}">
             <button type="submit">🔍 Buscar</button>
         </form>
         
         <div class="filtros">
-            <a href="/buscar?q={{ busqueda or '' }}" class="filtro-btn {% if not filtro_activo %}active{% endif %}">Todos</a>
-            <a href="/buscar?q={{ busqueda or '' }}&filtro=medicinal" class="filtro-btn {% if filtro_activo == 'medicinal' %}active{% endif %}">💊 Medicinales</a>
-            <a href="/buscar?q={{ busqueda or '' }}&filtro=cosmetico" class="filtro-btn {% if filtro_activo == 'cosmetico' %}active{% endif %}">🧴 Cosmética</a>
-            <a href="/buscar?q={{ busqueda or '' }}&filtro=ambos" class="filtro-btn {% if filtro_activo == 'ambos' %}active{% endif %}">✨ Ambos</a>
+            <a href="{{ url_for('views.buscar', q=busqueda or '') }}" class="filtro-btn {% if not filtro_activo %}active{% endif %}">Todos</a>
+            <a href="{{ url_for('views.buscar', q=busqueda or '', filtro='medicinal') }}" class="filtro-btn {% if filtro_activo == 'medicinal' %}active{% endif %}">💊 Medicinales</a>
+            <a href="{{ url_for('views.buscar', q=busqueda or '', filtro='cosmetico') }}" class="filtro-btn {% if filtro_activo == 'cosmetico' %}active{% endif %}">🧴 Cosmética</a>
+            <a href="{{ url_for('views.buscar', q=busqueda or '', filtro='ambos') }}" class="filtro-btn {% if filtro_activo == 'ambos' %}active{% endif %}">✨ Ambos</a>
         </div>
     </div>
     

@@ -67,14 +67,16 @@ def buscar():
             "SELECT * FROM plantas WHERE nombre_comun LIKE ? OR nombre_cientifico LIKE ?",
             (f'%{query}%', f'%{query}%')
         ).fetchall()
+    else:
+        plantas = db.execute('SELECT * FROM plantas ORDER BY nombre_comun').fetchall()
+
         if filtro == 'medicinal':
             plantas = [p for p in plantas if p['propiedades_medicinales'] and p['propiedades_medicinales'].strip()]
         elif filtro == 'cosmetico':
             plantas = [p for p in plantas if p['propiedades_cosmeticas'] and p['propiedades_cosmeticas'].strip()]
         elif filtro == 'ambos':
-            plantas = [p for p in plantas if p['propiedades_medicinales'] and p['propiedades_cosmeticas']]
-    else:
-        plantas = []
+            plantas = [p for p in plantas if p['propiedades_medicinales'] and p['propiedades_medicinales'].strip() and p['propiedades_cosmeticas'] and p['propiedades_cosmeticas'].strip()]
+        
     return render_template('plants.html', plantas=plantas, busqueda=query, filtro_activo=filtro)
 
 
