@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% import 'macros.html' as macros %}
 {% block title %}Blog{% endblock %}
 
 {% block content %}
@@ -8,13 +8,9 @@
     
     <div class="blog-grid">
         {% for articulo in articulos %}
-        <a href="/articulo/{{ articulo.id }}" class="card">
-            <div class="card-content">
-                <h3>{{ articulo.titulo }}</h3>
-                <small>{{ articulo.created_at[:10] }}</small>
-                <p>{{ articulo.contenido[:200] }}...</p>
-            </div>
-        </a>
+        
+        {{ macros.articulo_card(articulo)}}
+
         {% else %}
         <p>No hay artículos aún. ¡Agrega el primero desde el panel de administración!</p>
         {% endfor %}

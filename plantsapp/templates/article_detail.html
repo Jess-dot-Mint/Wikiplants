@@ -1,28 +1,50 @@
 {% extends "base.html" %}
-
+{% import 'macros.html' as macros %}
 {% block title %}{{ articulo.titulo }}{% endblock %}
 
 {% block content %}
 <div class="container">
+    
     <div class="ficha-planta">
-        <h1>{{ articulo.titulo }}</h1>
-        <small>Publicado el {{ articulo.created_at.strftime('%Y-%m-%d') }}</small>
-        
-        {% if planta %}
-        <div style="margin: 1rem 0;">
-            🌿 <a href="{{url_for('views.plant_detail', id=planta.id) }}">Ver ficha de {{ planta.nombre_comun }}</a>
+        <div class="ficha-img-article">
+         {{ macros.img_articulo(articulo)}}
         </div>
-        {% endif %}
-        
-        <hr style="margin: 1rem 0;">
-        
-        <div style="white-space: pre-wrap; line-height: 1.8;">
-            {{ articulo.contenido }}
+
+        <div class="ficha-info-article">
+            <h1>{{ articulo.titulo }}</h1>
+            <small>Publicado el {{ articulo.created_at.strftime('%Y-%m-%d') }}</small>
+            
         </div>
-        
-        <div style="margin-top: 2rem;">
-            <a href="{{ url_for('views.blog') }}" class="btn btn-outline">← Volver al blog</a>
-        </div>
+            {% if planta %}
+            <div style="margin: 1rem 0;" class="icha-info-article">
+                 <a href="{{url_for('views.plant_detail', id=planta.id) }}"> 🌿 Ver ficha de {{ planta.nombre_comun }}</a>
+            </div>
+            
+            
+            <hr>
+            
+            <div style="white-space: pre-wrap; line-height: 1.8;">
+                {{ articulo.contenido }}
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('views.blog') }}" class="btn btn-outline">← Volver al blog</a>
+            </div>
+
+            {% else %}
+
+
+            <hr >
+            
+            <div style="white-space: pre-wrap; line-height: 1.8;">
+                {{ articulo.contenido }}
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('views.blog') }}" class="btn btn-outline">← Volver al blog</a>
+            </div>
+            {% endif %}
+
     </div>
 </div>
 {% endblock %}

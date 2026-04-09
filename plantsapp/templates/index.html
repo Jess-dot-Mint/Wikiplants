@@ -14,15 +14,17 @@
        {% for planta in plantas %}
 
             {{ macros.planta_card(planta) }}
-       
+        {% else %}
+        <p>No hay plantas aún. ¡Agrega la primera desde el panel de administración!</p>
         {% endfor %}
     </div>
     
     <h2>📝 Últimos artículos</h2>
     <div class="blog-grid">
         {% for articulo in articulos %}
-
+           
             {{ macros.articulo_card(articulo) }}
+
 
         {% else %}
             <p>No hay artículos aún.</p>

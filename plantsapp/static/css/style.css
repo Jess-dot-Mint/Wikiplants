@@ -304,6 +304,22 @@
     max-width: 250px;
 }
 
+
+.ficha-img-article {
+    flex: 2;
+    min-width: 250px;
+    max-width: 1200px;
+}
+
+.ficha-info-article {
+    flex: 2;
+    min-width: 250px;
+    max-width: 1200px;
+    align-items: center;
+    padding: 2rem;
+    
+}
+
 .ficha-imagen img {
     width: 100%;
     border-radius: 16px;
@@ -439,10 +455,13 @@
 /* ===== BLOG (placeholder) ===== */
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem;
     margin: 2rem 0;
 }
+
+
+
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {

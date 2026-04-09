@@ -43,10 +43,23 @@
 
 
 
-{# templates/macros.html #}
+
+{% macro img_articulo(articulo) %}
+{% set base_nombre = articulo.titulo.lower().replace(' ', '_') %}
+    <a href="{{ url_for('views.articulo_detalle', id=articulo.id) }}" class="card">
+        <img src="{{ url_for('static', filename='images/' + base_nombre + '.png') }}" 
+             alt="{{ articulo.titulo }}" 
+             class="card-img"
+             onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/' + base_nombre + '.jpg') }}'; this.onerror=function(){this.outerHTML='<div class=\'card-img\' style=\'background-color:#e8e0d0; display:flex; align-items:center; justify-content:center;\'>📖</div>'}">
+
+{% endmacro %}
+
+
+
 
 {% macro articulo_card(articulo) %}
-    <a href="{{ url_for('views.articulo_detalle', id=articulo.id) }}" class="card">
+        {{img_articulo(articulo)}}
+        
         <div class="card-content">
             <h3>{{ articulo.titulo }}</h3>
             <small>{{ articulo.created_at.strftime('%Y-%m-%d') }}</small>

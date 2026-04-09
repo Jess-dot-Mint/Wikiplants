@@ -93,15 +93,9 @@ def articulo_detalle(id):
 
 
 
-
-"""
-@bp.route('/detail')
-def plant_det():
-    return render_template("plant_detail.html")
-
-"""
-
 @bp.route('/blog')
 def blog():
-    return render_template("blog.html")
-
+    """Listado de artículos del blog"""
+    db = get_db()
+    articulos = db.execute('SELECT * FROM articulos ORDER BY created_at DESC').fetchall()
+    return render_template('blog.html', articulos=articulos)
