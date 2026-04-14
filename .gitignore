@@ -14,7 +14,7 @@ instance/
 *.db
 *.sqlite
 *.sqlite3
-*.sql
+
 
 # IDE
 .vscode/
