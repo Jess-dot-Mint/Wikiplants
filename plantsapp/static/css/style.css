@@ -29,7 +29,15 @@
             background-color: #fef9e6;
             color: #2d2b26;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;  /* Altura mínima = toda la pantalla */
+            margin: 0;
         }
+        main {
+           flex: 1;  /* Empuja el footer hacia abajo */
+        } 
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -76,7 +84,7 @@
             color: white;
             text-align: center;
             padding: 2rem;
-            margin-top: 3rem;
+            margin-top: 0;  /* Ya no necesita margin, flex se encarga */
         }
         .footer a {
             color: #97bc62;
