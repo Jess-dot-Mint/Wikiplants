@@ -11,11 +11,15 @@
     
     */
 
-    --verde-oscuro: #226d30;
+    --verde-oscuro: #5c7f29;
+    --verde-oscuro: #8fae6f;
+   /* --verde-oscuro:   #2F4F4F;*/
     --verde-menta: #99AD7A;
+    --verde-menta: #9CAF88;
     --crema: #DCCCAC;
     --crema: #fef9e6;
     --blanco-hueso: #FFF8EC;
+    --blanco-hueso: #F9F6F0;
     --texto-oscuro: #2d2b26;
     --sombra: 0 4px 12px rgba(0,0,0,0.08);
     --sombra-hover: 0 8px 24px rgba(0,0,0,0.12);
